@@ -1,0 +1,264 @@
+/* body {
+  display: flex;
+  justify-content: center;
+} */
+
+body {
+  margin: 40px;
+}
+
+.box {
+  background: sandybrown;
+  border: 8px solid saddlebrown;
+  margin: 0 auto;
+  padding: 32px;
+  font-size: 32px;
+  /* changing fixed width to max-width lets it shrink down
+   to fit the screen
+   when max-width is defined, the element will not exceed
+   that width but will shrink if the screen is too small 
+   to accommodate it 
+    width: 600px; */
+  max-width: 600px;
+}
+
+.pink {
+  background: hotpink;
+  padding: 32px;
+  font-size: 32px;
+  margin: 0 auto;
+  max-width: 600px;
+  /* fixed height causes an overflow when the text gets 
+  cramped, so I want the pink div to grow instead
+  height: 300px; */
+  min-height: 300px;
+  /* AVOID HEIGHTS ALTOGETHER */
+}
+
+/* USE FLEX-WRAP
+USE GRID'S MINMAX, AUTO-FILL */
+
+.card {
+  /* margin: 0 auto;
+  instead of using a percent to define the width, use 
+  a static margin (margin: 0 auto could be used to center
+  the element, but I want an actual margin */
+  margin: 48px;
+  /* this is probably not the best way to solve the 
+  problem of responsiveness
+  issue 1. as the screen size changes, the margin to 
+           either side of the card also changes
+           (generally things look better when the margin 
+           outside an element, and the padding inside 
+           the element is either the same or related)
+           here, the card's padding stays static while
+           the margin changes
+  
+  width: 80%; */
+  background: red;
+  padding: 48px;
+  font-size: 32px;
+  /* max-width prevents the element from exceeding a
+  certain width even on huge screens */
+  max-width: 500px;
+}
+
+/* breakpoint for screens 500px or smaller 
+breakpoint - point defined in pixels at which the layout
+             of a webpage changes to provide an optimal 
+             viewing experience across different screen
+             sizes */
+@media (max-width: 500px) {
+  .card {
+    padding: 16px;
+    margin: 16px;
+  }
+}
+
+/* when using a percent is the right choice:
+ex. using height: 100% to make a child component fill the
+    entire height of its parent
+ex. width: 100% for elements that do not expand by default
+    (block-level elements expand, inline elements do not 
+setting up evently spaced columns, better done with flexbox 
+or grid */
+
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+  /* grid with as many 200 pixel column tracks as will fit 
+  into the container with the remaining space shared equally 
+  between the column 
+  minmax() - first value is the min size I want my tracks to 
+             be, second is the max 
+             with 1fr as the max value, the space is equally
+             distributed */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  background-color: #fff;
+  color: #444;
+}
+
+.square {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+/* don't define both a width and a height!
+if an image is given a flexible width, and the height is set
+to auto, it should retain its aspect ratio correctly 
+if I don't want my image to shrink in both height and width,
+background-size and object-fit */
+
+.background-image {
+  height: 100vh;
+  margin: 0;
+  background-image: url(https://images.unsplash.com/photo-1578241561880-0a1d5db3cb8a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80);
+  /* background-position and background-size only work on elements
+  with a background image and not with normal img tags 
+  background-size: cover, resizes the image so it always completely
+  fills its container while cropping as little as possible 
+  auto - default, retains its original size
+  length - specifies width and height using fixed values
+  percentage - size of the background image is set relative to the
+               size of the element
+  contain - scales the background image to be as large as possible
+            within the element without cropping, ensuring the entire
+            image is visible
+  below, global values
+  initial - sets the property to its default value
+  inherit - inherits the background size from the parent element 
+  revert, revert-layer, unset */
+  /* One-value syntax - the width of the image (height becomes 'auto') */
+  /* Two-value syntax - first value: width of the image, second value: height */
+  /* Multiple backgrounds - background-size: auto, auto; */
+  background-size: cover;
+  /* background-position: center, makes sure the image is
+  always centered in its container 
+  top, bottom, left, right, center - specifies position
+  10px 20px (length) - positions image 10px from left and 20px from top
+  50% 50% (percent) - specifies percent to position the background 
+                      relative to the element's dimensions
+                      50% 50% centers the background image within
+                      the element 
+  calc() - 
+  combo of above
+  initial - 0%, 0% (top-left corner, which is default value)
+  inherit - inherits the background position from the parent element */
+  /* Multiple images
+  background-position: 0 0, center;  */
+  /* Edge offsets values 
+  background-position: bottom 10px right 20px; */
+  /* revert, revert-layer, unset 
+  when percents are used - background image dimension is subtracted 
+  from the corresponding container dimension, and then a percentage 
+  of the resulting value is used as the direct offset from the left 
+  (or top) edge
+  (container width - image width) * (position x%) = (x offset value)
+  (container height - image height) * (position y%) = (y offset value)
+  if the background-size is equal to the container size for a given axis,
+  then percent position for that effect will have no effect */
+  background-position: center;
+}
+
+.mountains {
+  height: 300px;
+  width: 100%;
+  /* object-fit - works like background-size, but it's meant for img tags 
+                  specifies a width and height for the image, tells the
+                  image how it is supposed to fit itself to the dimensions 
+  fill - stretches the image to fit the dimensions, like background-
+         size's cover or contain 
+  none - 
+  scale-down - content sized to none or contain, whichever would result in 
+               a smaller concrete object size 
+  global values: initial, inherit, revert, revert-layer, unset */
+  object-fit: cover;
+
+  /* object-position lets me nudge an image around within its box */
+}
+
+.tiledBackground {
+  background-image: url(https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png);
+  background-size: 150px;
+  width: 300px;
+  height: 300px;
+  border: 2px solid;
+  color: pink;
+}
+
+.example {
+  background-color: #ffee99;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 80px;
+  margin-bottom: 12px;
+}
+
+/* These examples use the `background` shorthand property */
+.one {
+  background: url(https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png)
+    #ffee99 2.5cm bottom no-repeat;
+}
+.two {
+  background: url(https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png)
+    #ffee99 left 4em bottom 1em no-repeat;
+}
+
+/* Multiple background images: Each image is matched with the
+   corresponding position, from first specified to last */
+.three {
+  background-image: url(https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png),
+    url(https://images.unsplash.com/photo-1578241561880-0a1d5db3cb8a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80);
+  background-position:
+    0px 0px,
+    right 3em bottom 2em;
+}
+
+/* this is the CSS equivalent of the picture syntax
+the browser must follow my rules and display what matches */
+.responsive-images-w-background {
+  background-image: url(small.jpg);
+}
+@media (min-width: 468px),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi) {
+  .img {
+    background-image: url(large.jpg);
+  }
+}
+
+body {
+  margin: 2rem;
+  font:
+    500 125% system-ui,
+    sans-serif;
+}
+.page-wrap {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 200px;
+  grid-template-areas:
+    "header header"
+    "main aside"
+    "footer footer";
+}
+
+/* breakpoints are expressed with media queries in CSS */
+@media (max-width: 700px) {
+  .page-wrap {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header"
+      "main"
+      "aside"
+      "footer";
+  }
+}
+@media (max-width: 500px) {
+  body {
+    margin: 0;
+  }
+}

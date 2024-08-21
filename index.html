@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- telling the browser I want my website to be viewed at the actual non-zoomed
+     -out screen resolution, because most phone browsers simulate a larger screen and
+     display a zoom-out version of the page 
+
+     sets the initial width of the webpage to the size of the actual screen it's being
+     viewed on 
+     and tells it not to zoom in or out 
+     
+     Emmet ! + Enter for HTML boilerplate 
+     
+     viewport - area of the window in which web content can be seen, which is often not 
+                the same size as the rendered page 
+     
+     when the viewport isn't the same size as the rendered page, the browser provides
+     scrollbars for the user to scroll around and access all the content 
+     ex. if a mobile screen has a width of 640px, 
+        pages might be rendered with a virtual viewport of 980px, and then it will 
+        shrink down to git into the 640px space 
+     
+     virtual viewports make non-mobile-optimized sites look better on narrow screens 
+     problem: virtual viewports are not optimized for narrow screens using media queries
+        ex. if the virtual viewport is 980px, media queries that kick in at 640px or 
+            480px will never be used 
+            viewport meta tag mitigates this problem 
+            
+     width=device-width, physical size of the device screen in CSS pixels 
+     initial-scale, controls the zoom level when the page is first loaded
+     
+     best-practice is to enable a 5x zoom 
+     
+     to get s sharper images on high dpi screens, images or even whole layouts should be
+     designed at a higher scale than their final size, then they should be scaled down 
+     using CSS or viewport properties 
+     
+     for pages that set an initial or max scale, width property actually translates into
+     a minimum viewport width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Design</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="box">I just wanna flexxxxxx all day.</div>
+    <br />
+    <div class="pink">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam modi
+      ratione expedita delectus dolorum iusto distinctio, adipisci dolore nulla
+      provident eius aperiam dignissimos accusantium cum recusandae aut tempora!
+      Reprehenderit, esse.
+    </div>
+    <br />
+    <div class="card">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam modi
+      ratione expedita delectus dolorum iusto distinctio, adipisci dolore nulla
+      provident eius aperiam dignissimos accusantium cum recusandae aut tempora!
+      Reprehenderit, esse.
+    </div>
+    <br />
+    <div class="wrapper">
+      <div class="square a">A</div>
+      <div class="square b">B</div>
+      <div class="square c">C</div>
+      <div class="square d">D</div>
+      <div class="square e">E</div>
+      <div class="square f">F</div>
+      <div class="square g">G</div>
+      <div class="square h">H</div>
+      <div class="square i">I</div>
+    </div>
+    <br />
+    <div class="background-image"></div>
+    <br />
+    <img
+      class="mountains"
+      src="https://images.unsplash.com/photo-1578241561880-0a1d5db3cb8a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80"
+      alt=""
+    />
+    <br />
+    <div class="tiledBackground"></div>
+    <br />
+    <div class="example one">Example One</div>
+    <div class="example two">Example Two</div>
+    <div class="example three">Example Three</div>
+    <!--
+    srcset defines the set of images I will allow the browser to choose between
+    and what size each image is
+      each set of image info is separated from the previous one by a comma
+      for each set: 1. an image filename, 2. a space 3. the image's intrinsic width in pixels
+      find an image's intrinsic size by inspecting the image (select the image in Finder and
+      press Cmd + I to bring up the info screen)
+
+    sizes defines a set of media conditions (screen widths) and indicates what image size would 
+    be best to choose, when certain media conditions are true
+    1. media condition - a possible state that the screen can be in 
+    2. a space
+    3. the width of the slot the image will fill when the media condition is true 
+    the last slot width has no media condition because it's the default
+    <img
+      srcset="elva-fairy-480w.jpg 480w, elva-fairy-800w.jpg 800w"
+      sizes="(max-width: 600px) 480px,
+         800px"
+      src="elva-fairy-800w.jpg"
+      alt="Elva dressed as a fairy"
+    />
+
+    allow the browser to choose an appropriate resolution image by using srcset with x-descriptors
+    <img
+      srcset="elva-fairy-320w.jpg, elva-fairy-480w.jpg 1.5x, elva-fairy-640w.jpg 2x"
+      src="elva-fairy-640w.jpg"
+      alt="Elva dressed as a fairy" 
+    />
+
+    <img 
+      src="elva-800w.jpg" 
+      alt="Chris standing up holding his daughter Elva" 
+    /> -->
+    <!-- for increased performance/resolution switching 
+         image weight has a huge impact on pages' overall performance 
+         browsers assume that everything in a srcset is visually-identical and will
+         choose whatever size they think is best 
+         src/ the default is the low res 1x copy 
+         if the browser knows it is on a higher pixel-density display, the srcset file 
+         will be used -->
+    <img
+      srcset="baby-highres.png 2x"
+      src="baby-lowres.png"
+      alt="A baby smiling with a yellow headband."
+    />
+    <br />
+    <!-- srcset / w + sizes account for around 85% of responsive images usage on the web 
+     giving the browser more info, so that it can adapt based on pixel-density and layout size 
+     providing copies of the same image and letting the browser pick the most appropriate one
+     label the copies with their resource width, using w descriptors 
+     sizes attribute is how large of a space the image will be displaying in 
+     sizes - describes the width that the image will display within the layout of my specific site 
+             the width that the image renders at is layout dependent -->
+    <img
+      srcset="baby-highres.png 600w, baby-lowres.png 300w"
+      sizes="70vmin"
+      alt="A baby smiling with a yellow headband."
+    />
+    <!-- sizes attributes gives the browser the width of the image across all three breakpoints, 
+     factoring in the layout grid, and all of the surrounding gap, margin, and padding that end
+     up impacting the image's width 
+     use Martin Auswöger’s RespImageLint to get an accurate sizes attribute -->
+    <img
+      sizes="
+      (min-width: 2420px) 2000px, 
+      (min-width: 720px) calc(94.76vw - 274px), 
+      (min-width: 520px) calc(100vw - 96px), 
+      calc(100vw - 32px)
+      "
+    />
+    <!-- this image is in a three-column layout on large screens and close to full-width otherwise 
+    sizes="(min-width: 1000px) 33vw, 96vw" -->
+    <br />
+    <!-- for lazy-loaded images, lazysizes library writes out sizes attributes automatically on lazyload -->
+    <img
+      data-sizes="auto"
+      data-srcset="
+    responsive-image1.jpg 300w,
+    responsive-image2.jpg 600w,
+    responsive-image3.jpg 900w"
+      class="lazyload"
+    />
+    <br />
+    <!-- picture, like video and audio, is a wrapper containing several source elements for the browser 
+    to choose from, followed by the img element
+
+    source element includes a media attribute with a media condition, 
+    first media condition that returns true will be displayed
+    if the vw is 789px wide or less, first source element's image is displayed
+    if vw is 800px or more, second one is displayed
+
+    I can offer multiple images via a picture element, 
+    and then offer multiple resolutions of each one via srcset attribute
+    (I won't want to do that very often)
+
+    in all cases, I must provide an img element, with src and alt right before </picture>,
+    otherwise, no images with appear
+      this is the default case that will apply when none of the media conditions return true
+
+    media attribute should only be used in art direction scenarios
+      when I do use it, don't also offer media conditions within the sizes attribute
+    <picture>
+      <source media="(max-width: 799px)" srcset="elva-480w-close-portrait.jpg" />
+      <source media="(min-width: 800px)" srcset="elva-800w.jpg" />
+      <img src="elva-800w.jpg" alt="Chris standing up holding his daughter Elva" />
+    </picture>
+    -->
+    <!-- for design control/art direction 
+     it's also used for fallback image types and any other sort of media
+     query switching -->
+    <picture>
+      <source srcset="" media="" />
+      <source srcset="" media="" />
+      <img src="" alt="" />
+    </picture>
+    <!-- for picture, the browser must respect the rule that I set,
+     which is useful when I want to change more than just the resolution of the loaded image 
+     the browser must respect my media queries and will swap images at my exact breakpoints -->
+    <picture>
+      <!-- on a large screen, show a zoom-out photo -->
+      <source srcset="baby-zoomed-out.jpg" media="(min-width: 1000px)" />
+      <!-- on a medium screen, show that same photo, zoomed in a bit -->
+      <source srcset="baby.jpg" media="(min-width: 600px)" />
+      <!-- on a small screen, zoom in even more -->
+      <img src="baby-zoomed-in.jpg" alt="Baby Sleeping" />
+    </picture>
+    <!-- picture and art direction can also:
+     Dark-fy images for users in dark mode
+     avoid sending animated GIFs to "prefers reduced motion" users
+     re-arrange image content so that it all fits above the fold on short viewports 
+     set a max resolution cap
+     send static, high-res, monochrome images to printers and e-ink devices -->
+    <!-- source also uses srcset, so they can be combined -->
+    <!-- picture handles fallbacks
+       ex. serves a WebP image to browsers that support it, and falls back to JPEG which 
+           is definitely supported by all browsers -->
+    <picture>
+      <source srcset="party.webp" />
+      <img src="party.jpg" alt="A huge party with cakes." />
+    </picture>
+    <br />
+    <!-- this syntax supports all three of the next-gen image formats -->
+    <picture>
+      <!-- WebP, which isn't supported by Safari -->
+      <source srcset="/images/cereal-box.webp" type="image/webp" />
+      <!-- JPG 2000 which is supported by Safari -->
+      <source srcset="/images/cereal-box.jp2" type="image/jp2" />
+      <!-- JPEG-XR which is supported by IE 11 -->
+      <img src="/images/cereal-box.jxr" type="image/vnd.ms-photo" />
+    </picture>
+    <!-- make differently-sized images with the Preview app 
+     or use a service that allows me to create variations just by manipulating
+     the URL to the image like Cloudinary, Netlify, imigix, Image Optim, 
+     Filestack, and Cloudflare 
+     
+     I should automate and abstract as much of the syntax of responsive images
+     as possible
+     
+     
+     HTTP caching - what's better than loading less data over the network, 
+                    loading no data at all! I can tell the browser to hang on
+                    to images so that if the same image is needed again, the
+                    browser doesn't have to go over the network to get it 
+                    
+     lazy loading - waiting to download an image until it is in or near the 
+                    viewport ex. an image way far down the page won't load if
+                    the user never scrolls there -->
+  </body>
+  <script src="script.js"></script>
+</html>
