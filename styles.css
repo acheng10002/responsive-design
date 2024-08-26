@@ -3,8 +3,137 @@
   justify-content: center;
 } */
 
+/*
 body {
-  margin: 40px;
+  margin: 24px;
+}
+
+/* on all screens below or equal to 600px, the margin will
+be 8px, and on screens above 600px, it will be 24px 
+@media (max-width: 600px) {
+  body {
+    margin: 8px;
+  }
+}
+*/
+
+body {
+  background: purple;
+}
+
+@media (max-width: 900px) {
+  body {
+    background: green;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    background: brown;
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    background: pink;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    background: blue;
+  }
+}
+
+@media (max-width: 500px) {
+  body {
+    background: orange;
+  }
+}
+
+header {
+  background: dodgerblue;
+  padding: 32px 64px;
+  font-size: 32px;
+  color: white;
+}
+
+main {
+  display: flex;
+  flex: 1;
+}
+
+aside {
+  width: 300px;
+  flex-shrink: 0;
+  background: palevioletred;
+  color: white;
+}
+
+li {
+  font-size: 24px;
+  list-style-type: none;
+}
+
+section {
+  padding: 16px;
+  margin: 16px;
+  font-size: 24px;
+  background: blanchedalmond;
+}
+
+footer {
+  height: 96px;
+  background: darkslateblue;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* best to minimize media-query usage and rely more on
+natural flexibility of my layouts 
+
+this example only needs one media query to accommodate 
+all desktop and mobile sizes 
+
+mobile phones are usually under 500px
+tablets are between 500px and 1000px
+anything larger than 1000px is a normal browser screen 
+super wide screens can be wider than 2000px 
+
+try to limit my breakpoints to just what I need 
+
+with relatively basic layouts, I can get by with one 
+mobile-centric breakpoint, around 500-600px 
+
+more complex layouts could use a full-sized layout above
+1200px, an altered tablet layout between 600-1200px
+and mobile below 600px 
+
+if my browser window is exactly 1000px wide
+  zooming in causes the page to behave as if the 
+  screen is smaller and triggers media queries based
+  on the simulated/zoomed screen resolution 
+zooming out can be handy for debugging issues from screens
+  that are larger than my own computer screen */
+@media (max-width: 800px) {
+  main {
+    flex-direction: column;
+  }
+  header {
+    text-align: center;
+    padding: 24px;
+  }
+  aside {
+    width: auto;
+  }
+  ul {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    padding: 0;
+  }
 }
 
 .box {
@@ -67,7 +196,10 @@ USE GRID'S MINMAX, AUTO-FILL */
 breakpoint - point defined in pixels at which the layout
              of a webpage changes to provide an optimal 
              viewing experience across different screen
-             sizes */
+             sizes 
+             
+media queries - changes to some of my CSS values to 
+                accommodate a specific screen size */
 @media (max-width: 500px) {
   .card {
     padding: 16px;
@@ -262,3 +394,76 @@ body {
     margin: 0;
   }
 }
+
+/* how to implement media queries to create fully responsive
+websites that look great on any device
+  how do I define a media query to create a mobile layout for my site?
+  what is the difference between max-width and min-width in a media query definition?
+    max-width - on screens below or equal to this value, apply the media query CSS
+    min-width - on screens above this value, apply the media query CSS 
+    max-height and min-height are also valid
+*/
+
+/* // changing styles based on the media type
+// though specifying screen is redundant
+@media screen and (max-width: 480px) {
+} 
+
+// also possible to create a different set of styles
+// for my website when it is sent to the printer or
+// viewed in print-preview mode
+// fairly common to make things black/white and add
+// display: none to hide elements that are useless in a
+// printed environment
+@media print {
+}
+
+@media (hover: hover) {
+}
+
+@media print and (orientation: portrait) {
+}
+
+// I can use either the inclusive min- and max- or the more concise range syntax 
+// operators
+@media (width <=1250px) {
+}
+
+// if I create a media feature query without specifying a value, the nested
+// style will be used as long as the feature's value is not 0 or none
+
+@media (min-width: 30em) and (orientation: landscape) {
+}
+
+@media screen (min-width: 30em) and (orientation: landscape) {
+}
+
+// comman-separated list of media queries to apply styles when the user's
+// device matches any one of various media types, features, or states
+
+// block's styles will apply if either the user's device has a height of
+// 680px or more or if the browser viewport is in the portrait mode
+
+// the not keyword inverts the meaning of a single media query
+// the not negates all the features within the media query in which it is contained
+@media not print {
+}
+
+@media not all and (monochrome) {
+} is the same as
+
+@media (not all) and (monochrome)) {
+}
+
+use parenthesis to negative a single feature with a media query 
+// negates the hover feature but not all media types
+@media all and (non(hover)) {
+}
+
+// only keyword prevents older browsers that do not support edia queries with
+media features from applying the given styles 
+
+// tests for devices that have a monochrome display or hover capability
+@media (not(color) or (hover) {
+}
+*/
